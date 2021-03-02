@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Forfaits Voyages',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
       ),
       home: AccueilForfaitsVoyages(title: 'Forfaits Voyages'),
     );
@@ -64,6 +65,7 @@ class AccueilForfaitsVoyagesState extends State<AccueilForfaitsVoyages> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
+
               appBar: AppBar(title: Text(widget.title!)),
               body: Center(
                 child: Column(
@@ -71,69 +73,246 @@ class AccueilForfaitsVoyagesState extends State<AccueilForfaitsVoyages> {
                     Expanded(
                       child: ListView.builder(
                         itemBuilder: (context, position) {
-                          return Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            12.0, 12.0, 12.0, 6.0),
-                                        child: Text(
-                                          snapshot.data?[position]
-                                                  .destination ??
-                                              '',
-                                          style: TextStyle(
-                                              fontSize: 22.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                          return Container(
+                              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                          height: 220,
+                          width: double.maxFinite,
+                          child: Card(
+                          elevation: 3,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(
+                                    width: 2.0, color: Colors.blue),
+                              ),
+                              color: Colors.white,
+                            ),
+                          child: Padding(
+                            padding: EdgeInsets.all(7),
+                          child: Stack(children: <Widget>[
+
+                          Align(
+                            alignment: Alignment.topLeft,
+                              child: Stack(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(4,12,0,0),
+                                      child:
+                                      Icon(
+                                        Icons.hotel,
+                                        size: 20.0,
+                                        color: Colors.blueGrey,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            12.0, 6.0, 12.0, 12.0),
-                                        child: Text(
-                                          snapshot.data?[position]
-                                                  .villeDepart ??
-                                              '',
-                                          style: TextStyle(fontSize: 18.0),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        Text(
-                                          snapshot.data?[position].hotel?.nombreEtoiles.toString() ?? '',
-                                          style: TextStyle(color: Colors.grey),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:
-                                          Icon(
-                                            Icons.star_border,
-                                            size: 35.0,
-                                            color: Colors.grey,
+                                    ),
+
+
+
+                                    Padding(
+                                        padding: const EdgeInsets.fromLTRB(30, 10, 0, 0),
+                                        child: Row(
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.topLeft,
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    text: snapshot.data?[position].hotel?.nom ?? '',
+                                                    style: TextStyle(
+                                                        color: Colors.black38, fontSize: 24),
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: ' (',
+                                                          style: TextStyle(
+                                                              color: Colors.blueGrey,
+                                                              fontSize: 15,
+                                                              fontWeight: FontWeight.bold)),
+                                                      TextSpan(
+                                                          text: snapshot.data?[position].destination ?? '',
+                                                          style: TextStyle(
+                                                              color: Colors.blueGrey,
+                                                              fontSize: 15,
+                                                              fontWeight: FontWeight.bold)),
+                                                      TextSpan(
+                                                          text: ')',
+                                                          style: TextStyle(
+                                                              color: Colors.blueGrey,
+                                                              fontSize: 15,
+                                                              fontWeight: FontWeight.bold)),
+                                                    ],
+
+                                                  ),
+                                                ),
+                                              )
+                                            ]
+                                        )
+                                    ),
+
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(35, 40, 0, 0),
+                                      child: Row(
+                                          children: <Widget>[
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: RichText(
+                                          text: TextSpan(
+                                            text: 'de ',
+                                            style: TextStyle(
+                                                color: Colors.black38, fontSize: 16),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: snapshot.data?[position].villeDepart ?? '',
+                                                  style: TextStyle(
+                                                      color: Colors.blueGrey,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.bold)),
+                                            ],
                                           ),
                                         ),
-                                      ],
+                                      )
+
+                                            ]
+                                      )
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Divider(
-                                height: 2.0,
-                                color: Colors.grey,
+
+
+
+
+                                    Padding(
+                                        padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+                                        child: Row(
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    text: 'Prix: ',
+                                                    style: TextStyle(
+                                                        color: Colors.black38, fontSize: 16),
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: snapshot.data?[position].prix.toString() ?? '',
+                                                          style: TextStyle(
+                                                              color: Colors.red,
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight.bold)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ]
+                                        )
+                                    ),
+
+
+                                    Padding(
+                                        padding: const EdgeInsets.fromLTRB(35, 60, 0, 0),
+                                        child: Row(
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    text: 'Date de départ: ',
+                                                    style: TextStyle(
+                                                        color: Colors.black38, fontSize: 16),
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: snapshot.data?[position].dateDepart.toString() ?? '',
+                                                          style: TextStyle(
+                                                              color: Colors.blueGrey,
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.bold)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ]
+                                        )
+                                    ),
+
+
+                                    Padding(
+                                        padding: const EdgeInsets.fromLTRB(35, 100, 0, 0),
+                                        child: Row(
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    text: 'Date de retour: ',
+                                                    style: TextStyle(
+                                                        color: Colors.black38, fontSize: 16),
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: snapshot.data?[position].dateRetour.toString() ?? '',
+                                                          style: TextStyle(
+                                                              color: Colors.blueGrey,
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.bold)),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ]
+                                        )
+                                    ),
+
+
+                                    Padding(
+                                        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                        child: Row(
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.bottomRight,
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    text: ' ',
+                                                    style: TextStyle(
+                                                        color: Colors.black38, fontSize: 16),
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                          text: snapshot.data?[position].hotel?.nombreEtoiles.toString() ?? '',
+                                                          style: TextStyle(
+                                                              color: Colors.blueGrey,
+                                                              fontSize: 15,
+                                                              fontWeight: FontWeight.bold),
+
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ]
+                                        )
+                                    ),
+
+                                    Padding(
+                                        padding: const EdgeInsets.fromLTRB(0,0,0,0),
+                                        child:Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child:
+                                              Icon(
+                                                Icons.star_border,
+                                                size: 22.0,
+                                                color: Colors.blueGrey,
+                                              ),
+                                            ),
+
+                                          ],
+                                        )
+                                    )
+
+
+                                  ],
                               )
-                            ],
+                          )
+
+                          ]
+                          )
+                          )
+                          )
+                          )
                           );
                         },
                         itemCount: snapshot.data?.length,
@@ -141,7 +320,8 @@ class AccueilForfaitsVoyagesState extends State<AccueilForfaitsVoyages> {
                     )
                   ],
                 ),
-              )); // Cette partie a été comprimée dans les notes pour une meilleure visibilité
+              )
+          ); // Cette partie a été comprimée dans les notes pour une meilleure visibilité
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
@@ -149,6 +329,8 @@ class AccueilForfaitsVoyagesState extends State<AccueilForfaitsVoyages> {
       },
     );
   }
+
+
 }
 
 class Forfait {
